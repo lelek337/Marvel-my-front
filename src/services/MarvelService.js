@@ -27,6 +27,7 @@ class MarvelService {
   _transformCharacter = (char) => {
     const noInformation = 'There is no information about this character'
     return {
+      id: char.id,
       name: char.name,
       description: char.description ? `${char.description.slice(0, 210)}...` : noInformation,
       thumbnail: char.thumbnail.path + '.' + char.thumbnail.extension,
