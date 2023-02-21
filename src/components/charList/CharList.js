@@ -5,6 +5,10 @@ import Spinner from '../spinner/Spinner';
 import MarvelService from '../../services/MarvelService';
 
 class CharList extends Component {
+    // constructor(props) {
+    //     super(props);
+    // }
+
     state = {
         characters: {},
         loading: true,
@@ -30,9 +34,26 @@ class CharList extends Component {
         })
     }
 
+    charItems(characters) {
+        return characters.map(elem => {
+            return(
+                <li 
+                    className="char__item char__item_selected" 
+                    key={elem.id}
+                    onClick={() => this.props.onCharSelected(elem.id)}>
+                        <img 
+                            src={elem.thumbnail} 
+                            alt="abyss"
+                            styles={{objectFit: elem.thumbnail ? 'cover' : 'contain'}}/>
+                        <div className="char__name">{elem.name}</div>
+                </li>
+            )
+        })
+    }
+
     render() {
         const {characters, loading} = this.state;
-        const carItems = loading ? <Spinner/> : <CharItems characters={characters}/>
+        const carItems = loading ? <Spinner/> : this.charItems(characters)
         return (
             <div className="char__list">
                 <ul className="char__grid">
@@ -46,18 +67,6 @@ class CharList extends Component {
     }  
 }
 
-const CharItems = ({characters}) => {
-    return characters.map(elem => {
-        return(
-            <li className="char__item char__item_selected" key={elem.id}>
-                    <img 
-                        src={elem.thumbnail} 
-                        alt="abyss"
-                        styles={{objectFit: elem.thumbnail ? 'cover' : 'contain'}}/>
-                    <div className="char__name">{elem.name}</div>
-            </li>
-        )
-    })
-}
+
 
 export default CharList;

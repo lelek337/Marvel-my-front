@@ -29,6 +29,12 @@ class RandomChar extends Component {
         })
     }
 
+    onCharLoding = () => {
+        this.setState({
+            loading: true
+        })
+    }
+
     onError = () => {
         this.setState({ 
             loading: false,
@@ -38,6 +44,7 @@ class RandomChar extends Component {
 
     updateChar = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
+        this.onCharLoding();
         this.marveiService
             .getCharacter(id)
             .then(this.onCharLoaded)
